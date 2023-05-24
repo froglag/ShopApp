@@ -1,12 +1,11 @@
 ﻿using Shop.DataBase;
-using Shop.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Application.Products
+namespace Shop.Application.ProductsAdmin
 {
     public class GetProducts
     {
@@ -19,14 +18,14 @@ namespace Shop.Application.Products
 
         public IEnumerable<ProductViewModel> Do()
         {
-            return _context.Products.ToList().Select(x => new ProductViewModel { Name = x.Name, Description = x.Description, Price ="$ "+ x.Price.ToString("N2") });
+            return _context.Products.ToList().Select(x => new ProductViewModel {Id = x.Id, Name = x.Name, Description = x.Description, Price = x.Price });
         }
         public class ProductViewModel
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
-            public string Price { get; set; }
+            public float Price { get; set; }
         }
     }
-    
 }

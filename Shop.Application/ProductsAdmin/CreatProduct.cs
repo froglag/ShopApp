@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.Application.CreatProducts
+namespace Shop.Application.ProductsAdmin
 {
     public class CreatProduct
     {
@@ -22,11 +22,13 @@ namespace Shop.Application.CreatProducts
             _context.Products.Add(new Product { Name = vm.Name, Description = vm.Description, Price = vm.Price });
             await _context.SaveChangesAsync();
         }
+
+        public class ProductViewModel
+        {
+            public string Name { get; set; }
+            public string Description { get; set; }
+            public float Price { get; set; }
+        }
     }
-    public class ProductViewModel
-    {
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public float Price { get; set; }
-    }
+    
 }
