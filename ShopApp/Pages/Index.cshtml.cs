@@ -11,9 +11,6 @@ namespace ShopApp.Pages
 {
     public class IndexModel : PageModel
     {        
-        [BindProperty]
-        public CreatProduct.ProductViewModel Product { get; set; }
-
         private readonly ApplicationDBContext _context;
         public IndexModel(ApplicationDBContext context)
         {
@@ -24,11 +21,6 @@ namespace ShopApp.Pages
         public void OnGet()
         {
             Products = new Shop.Application.Products.GetProducts(_context).Do();
-        }
-        public async Task<IActionResult> OnPost()
-        {
-            await new CreatProduct(_context).Do(Product);
-            return RedirectToPage("Index");
         }
     }
 }

@@ -5,24 +5,25 @@
 }
 
 <div class="text-center">
-    <form method="post">
-        <label>Name</label>
-        <input type="text" asp-for="Product.Name"/>
-        <label>Discription</label>
-        <input type="text" asp-for="Product.Description"/>
-        <label>Price</label>
-        <input type="text" asp-for="Product.Price"/>
-        <input type="submit"/>
-    </form>
 
     <div>
-        @{
-            foreach(var p in Model.Products)
-            {
-                <p>
-                    @p.Name - @p.Description - @p.Price
-                </p>
+        <table class="table">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                    </tr>
+            @{
+                foreach(var p in Model.Products)
+                {
+                    <tr>
+                         <td>@p.Name</td>
+                         <td>@p.Description</td>
+                         <td>@p.Price</td>
+                    </tr>
+                }  
             }
-        }
+                    
+         </table>
     </div>
 </div>

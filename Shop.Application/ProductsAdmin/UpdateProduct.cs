@@ -17,9 +17,9 @@ namespace Shop.Application.ProductsAdmin
             _context = context;
         }
 
-        public async Task Do(int Id, ProductViewModel vm)
+        public async Task Do(ProductViewModel vm)
         {
-            var Product = _context.Products.FirstOrDefault(x => x.Id == Id);
+            var Product = _context.Products.FirstOrDefault(x => x.Id == vm.Id);
             Product.Name = vm.Name;
             Product.Description = vm.Description;
             Product.Price = vm.Price;
@@ -28,6 +28,7 @@ namespace Shop.Application.ProductsAdmin
 
         public class ProductViewModel
         {
+            public int Id { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
             public float Price { get; set; }
