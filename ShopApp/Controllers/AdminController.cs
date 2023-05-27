@@ -21,12 +21,12 @@ namespace ShopApp.Controllers
         public IActionResult GetProduct(int id) => Ok(new GetProduct(_context).Do(id));
 
         [HttpPost("products")]
-        public IActionResult CreatProduct(CreatProduct.ProductViewModel vm) => Ok(new CreatProduct(_context).Do(vm));
+        public async Task<IActionResult> CreatProduct([FromBody] CreatProduct.Request request) => Ok((await new CreatProduct(_context).Do(request)));
 
         [HttpDelete("products/{id}")]
-        public IActionResult DeleteProduct(int id) => Ok(new DeleteProduct(_context).Do(id));
+        public async Task<IActionResult> DeleteProduct(int id) => Ok((await new DeleteProduct(_context).Do(id)));
 
         [HttpPut("products")]
-        public IActionResult UpDateProduct(UpdateProduct.ProductViewModel vm) => Ok(new UpdateProduct(_context).Do(vm));
+        public async Task<IActionResult> UpDateProduct([FromBody] UpdateProduct.Request request) => Ok((await new UpdateProduct(_context).Do(request)));
     }
 }
