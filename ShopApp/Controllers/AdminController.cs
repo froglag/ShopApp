@@ -5,7 +5,7 @@ using Shop.Domain.Models;
 
 namespace ShopApp.Controllers
 {
-    [Route("Admin")]
+    [Route("[controller]")]
     public class AdminController : Controller
     {
         public ApplicationDBContext _context;

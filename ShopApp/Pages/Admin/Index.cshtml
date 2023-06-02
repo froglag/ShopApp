@@ -8,14 +8,16 @@
         <input v-model="productModel.description"/>
         <input v-model="productModel.price"/>
     </div>
-    <button v-on:click ="creatProduct">Create</button>
-    <button v-on:click ="getProducts">Get Products</button>
+        <button @@click ="creatProduct" v-if ="!productModel.id">Create</button>
+        <button @@click ="updateProduct" v-else>Update</button>
+        <button v-on:click ="getProducts">Get Products</button>
     <div>
-        <p v-for = "product in products">
+        <p v-for = "(product, index) in products">
             {{product.id}} - {{product.name}} - {{product.description}} - {{product.price}}
+            <a @@click ="editProduct(product, index)">Edit</a>
+            <a @@click ="deleteProduct(product.id, index)">Delete</a>
         </p>
     </div>
-
 </div>
 
 @section scripts{
