@@ -1,6 +1,7 @@
 ﻿var app = new Vue({
     el: '#app',
     data: {
+        editing: false,
         loading: false,
         indexModel:0,
         productModel: {
@@ -11,6 +12,11 @@
         },
         products: []
     },
+
+    mounted() {
+        this.getProducts();
+    },
+
     methods: {
         getProduct(id) {
             this.loading = true;
@@ -40,7 +46,10 @@
                     this.products.push(res.data);
                 })
                 .catch(err => { console.log(err); })
-                .then(() => { this.loading = false; })
+                .then(() => {
+                    this.loading = false;
+                    this.editing = false;
+                })
         },
         updateProduct() {
             this.loading = true;
@@ -50,7 +59,10 @@
                     this.products.splice(this.indexModel, 1, res.data);
                 })
                 .catch(err => { console.log(err); })
-                .then(() => { this.loading = false; })
+                .then(() => {
+                    this.editing = false;
+                    this.loading = false;
+                })
         },
         editProduct(product, index) {
             this.indexModel = index;
@@ -60,6 +72,7 @@
                 description: product.description,
                 price: product.price,
             };
+            this.editing = true;
         },
         deleteProduct(id, index) {
             this.loading = true;
@@ -70,6 +83,13 @@
                 })
                 .catch(err => { console.log(err); })
                 .then(() => { this.loading = false; })
+        },
+        newProduct() {
+            this.editing = true;
+            this.productModel.id = 0;
+        },
+        cansel() {
+            this.editing = false;
         },
     }
 });
