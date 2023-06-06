@@ -20,7 +20,7 @@
     methods: {
         getProduct(id) {
             this.loading = true;
-            axios.get('admin/products/' + id)
+            axios.get('/admin/products/' + id)
                 .then(res => {
                     console.log(res.data);
                     this.products = res.data;
@@ -30,7 +30,7 @@
         },
         getProducts() {
             this.loading = true;
-            axios.get('admin/products')
+            axios.get('/admin/products')
                 .then(res => {
                     console.log(res.data);
                     this.products = res.data;
@@ -40,7 +40,7 @@
         },
         creatProduct() {
             this.loading = true;
-            axios.post('admin/products', this.productModel)
+            axios.post('/admin/products', this.productModel)
                 .then(res => {
                     console.log(res.data);
                     this.products.push(res.data);
@@ -53,7 +53,7 @@
         },
         updateProduct() {
             this.loading = true;
-            axios.put('admin/products', this.productModel)
+            axios.put('/admin/products', this.productModel)
                 .then(res => {
                     console.log(res.data);
                     this.products.splice(this.indexModel, 1, res.data);
@@ -76,7 +76,7 @@
         },
         deleteProduct(id, index) {
             this.loading = true;
-            axios.delete('admin/products/'+id)
+            axios.delete('/admin/products/'+id)
                 .then(res => {
                     console.log(res.data);
                     this.products.splice(index, 1);

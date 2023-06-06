@@ -16,3 +16,7 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.divider-right {
+    border-right: 1px solid #ccc;
+}

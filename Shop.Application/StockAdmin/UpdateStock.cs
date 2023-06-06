@@ -32,6 +32,8 @@ namespace Shop.Application.StockAdmin
             }
             _context.Stock.UpdateRange(stocks);
 
+            await _context.SaveChangesAsync();
+
             return new Response { 
                 Stock = request.Stock
             };
