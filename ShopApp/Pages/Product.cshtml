@@ -1,0 +1,18 @@
+﻿@page "{name}"
+@model ShopApp.Pages.ProductModel
+@{
+}
+<div>
+    <p>@Model.Product.Name</p>
+    <p>@Model.Product.Description</p>
+    <p>@Model.Product.Price</p>
+    <div>
+        <select>
+            @{
+            foreach(var stock in Model.Product.Stock){
+                <option value="@stock.Id">@stock.Description</option>
+            }
+            }
+        </select>
+    </div>
+</div>

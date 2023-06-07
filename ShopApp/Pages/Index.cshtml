@@ -7,20 +7,13 @@
 <div class="text-center">
 
     <div>
-        <table class="table">
-                    <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                    </tr>
             @{
                 foreach(var p in Model.Products)
                 {
-                    <tr>
-                         <td>@p.Name</td>
-                         <td>@p.Description</td>
-                         <td>@p.Price</td>
-                    </tr>
+                    <a asp-page="Product" asp-route-name ="@p.Name.Replace(' ', '-')">
+                         @p.Name - @p.Description - @p.Price
+                         <br>
+                    </a>
                 }  
             }
                     
