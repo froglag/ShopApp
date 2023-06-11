@@ -7,12 +7,18 @@
     <p>@Model.Product.Description</p>
     <p>@Model.Product.Price</p>
     <div>
-        <select>
-            @{
-            foreach(var stock in Model.Product.Stock){
-                <option value="@stock.Id">@stock.Description</option>
-            }
-            }
-        </select>
+        <form method="post">
+            <label>Stock:</label>
+            <select asp-for="CartViewModel.StockId">
+                @{
+                foreach(var stock in Model.Product.Stock){
+                    <option value="@stock.Id">@stock.Description</option>
+                }
+                }
+            </select>
+            <label>Qty:</label>
+            <input asp-for="CartViewModel.Qty" >
+            <button type="submit">Add to Cart</button>
+        </form>
     </div>
 </div>

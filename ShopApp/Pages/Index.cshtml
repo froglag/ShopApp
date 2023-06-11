@@ -3,20 +3,26 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
-<div class="text-center">
-
-    <div>
-            @{
-                foreach(var p in Model.Products)
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="row">
+                @foreach (var p in Model.Products)
                 {
-                    <a asp-page="Product" asp-route-name ="@p.Name.Replace(' ', '-')">
-                         @p.Name - @p.Description - @p.Price
-                         <br>
-                    </a>
-                }  
-            }
-                    
-         </table>
+                    <div class="col-md-3 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">@p.Name</h5>
+                                <p class="card-text">@p.Description</p>
+                                <p class="card-text">Price: @p.Price</p>
+                            </div>
+                            <div class="card-footer text-center">
+                                <a class="btn btn-primary" asp-page="Product" asp-route-name="@p.Name.Replace(' ', '-')">View Product</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>

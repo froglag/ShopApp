@@ -1,0 +1,29 @@
+﻿@page
+@model ShopApp.Pages.CartModel
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Shopping Cart</h4>
+                </div>
+                <div class="card-body">
+                    @foreach (var product in Model.Cart)
+                    {
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">@product.Name</h5>
+                                <p class="card-text">ID: @product.StockId</p>
+                                <p class="card-text">Quantity: @product.Qty</p>
+                                <p class="card-text">Price: @product.Price</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Shop.DataBase;
@@ -7,9 +9,19 @@ builder.Services.AddDbContext<ApplicationDBContext>(option =>
 {
     option.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("ShopApp"));
 });
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
+
+
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "cart";
+    options.Cookie.MaxAge = TimeSpan.FromMinutes(120);
+});
 
 var app = builder.Build();
 
@@ -31,5 +43,7 @@ app.MapControllers();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.UseSession();
 
 app.Run();
