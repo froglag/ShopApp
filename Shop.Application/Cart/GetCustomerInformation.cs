@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Shop.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,8 +25,19 @@ namespace Shop.Application.Customer
             if (string.IsNullOrEmpty(stringObject))
                 return null;
 
-            var response = JsonConvert.DeserializeObject<Response>(stringObject);
-            return response;
+            var customerInformation = JsonConvert.DeserializeObject<CustomerInformation>(stringObject);
+            return new Response 
+            { 
+                Name = customerInformation.Name,
+                LastName = customerInformation.LastName,
+                Email = customerInformation.Email,
+                PhoneNumber = customerInformation.PhoneNumber,
+
+                Address1 = customerInformation.Address1,
+                Address2 = customerInformation.Address2,
+                City = customerInformation.City,
+                PostCode = customerInformation.PostCode,
+            };
         }
         public class Response
         {
@@ -41,9 +53,9 @@ namespace Shop.Application.Customer
             public string PhoneNumber { get; set; }
 
             [Required]
-            public string Adress1 { get; set; }
+            public string Address1 { get; set; }
             [Required]
-            public string Adress2 { get; set; }
+            public string Address2 { get; set; }
             [Required]
             public string City { get; set; }
             [Required]

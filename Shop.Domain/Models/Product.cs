@@ -14,6 +14,5 @@ namespace Shop.Domain.Models
         public float Price { get; set; }
 
         public ICollection<Stock> Stock { get; set; }
-        public ICollection<OrderProducts> OrderProducts { get; set; }
     }
 }
