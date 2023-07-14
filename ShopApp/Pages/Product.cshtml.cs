@@ -19,14 +19,18 @@ namespace ShopApp.Pages
             _context = context;
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
-            new AddToCart(HttpContext.Session).Do(CartViewModel);
-            return RedirectToPage("Cart");
+            var result = await new AddToCart(HttpContext.Session, _context).Do(CartViewModel);
+            if(result)
+                return RedirectToPage("Cart");
+            else
+                //TODO: add a warning
+                return Page();
         }
-        public IActionResult OnGet(string name)
+        public async Task<IActionResult> OnGet(string name)
         {
-            Product = new GetProduct(_context).Do(name.Replace('-', ' '));
+            Product = await new GetProduct(_context).Do(name.Replace('-', ' '));
             if(Product == null)
             {
                 return RedirectToPage("Index");

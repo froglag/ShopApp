@@ -7,6 +7,7 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Shop.DataBase;
 using Shop.Domain.Models;
 
 namespace Shop.Application.Cart
@@ -14,14 +15,33 @@ namespace Shop.Application.Cart
     public class AddToCart
     {
         private ISession _session;
+        private ApplicationDBContext _context;
 
-        public AddToCart(ISession session)
+        public AddToCart(ISession session, ApplicationDBContext context)
         {
             _session = session; 
+            _context = context;
         }
 
-        public void Do(Request request)
+        public async Task<bool> Do(Request request)
         {
+
+            var stockOnHold = _context.Stock.Where(x => x.Id == request.StockId).FirstOrDefault();
+            if (stockOnHold.Qty < request.Qty)
+            {
+                return false;
+            }
+            _context.StockOnHolds.Add(new StockOnHold
+            {
+                StockId = request.StockId,
+                Qty = request.Qty,
+                ExpiryDate = DateTime.Now.AddMinutes(20),
+            });
+
+            stockOnHold.Qty = stockOnHold.Qty - request.Qty;
+            
+            await _context.SaveChangesAsync();
+
             var cartlist = new List<CartProduct>();
             var stringObject = _session.GetString("cart");
 
@@ -45,6 +65,8 @@ namespace Shop.Application.Cart
 
             stringObject = JsonConvert.SerializeObject(cartlist);
             _session.SetString("cart", stringObject);
+
+            return true;
         }
         public class Request
         {
