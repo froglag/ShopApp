@@ -20,6 +20,7 @@ namespace Shop.Application.Orders
 
         public class Request
         {
+            public string SessionId { get; set; }
             public string Name { get; set; }
             public string LastName { get; set; }
             public string Email { get; set; }
@@ -41,12 +42,9 @@ namespace Shop.Application.Orders
 
         public async Task<bool> Do(Request request)
         {
-            var UpdateStock = _context.Stock.Where(x => request.Stocks.Any(y => y.StockId == x.Id)).ToList();
+            var stockOnHold = _context.StockOnHolds.Where(x => x.SessionId == request.SessionId).ToList();
 
-            foreach(var item in UpdateStock)
-            {
-                item.Qty = item.Qty - request.Stocks.FirstOrDefault(x => x.StockId == item.Id).Qty;
-            }
+            _context.StockOnHolds.RemoveRange(stockOnHold);
 
             var order = new Order
             { 

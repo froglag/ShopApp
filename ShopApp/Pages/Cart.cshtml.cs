@@ -57,8 +57,11 @@ namespace ShopApp.Pages
             var service = new SessionService();
             Session session = service.Create(options);
 
+            var sessionId = HttpContext.Session.Id;
+
             new CreateOrder(_context).Do(new CreateOrder.Request
             {
+                SessionId = sessionId,
                 Name = Order.CustomerInformation.Name,
                 LastName = Order.CustomerInformation.LastName,
                 Email = Order.CustomerInformation.Email,

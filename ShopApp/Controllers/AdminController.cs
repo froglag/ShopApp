@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Application.ProductsAdmin;
 using Shop.Application.StockAdmin;
 using Shop.DataBase;
@@ -10,10 +11,12 @@ namespace ShopApp.Controllers
     public class AdminController : Controller
     {
         public ApplicationDBContext _context;
+
         public AdminController(ApplicationDBContext context)
         {
             _context = context;
         }
+
 
         [HttpGet("products")]
         public IActionResult GetProducts() => Ok(new GetProducts(_context).Do());
@@ -43,6 +46,5 @@ namespace ShopApp.Controllers
 
         [HttpPut("stocks")]
         public async Task<IActionResult> UpdateStock([FromBody] UpdateStock.Request request) => Ok((await new UpdateStock(_context).Do(request)));
-
     }
 }

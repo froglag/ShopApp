@@ -18,7 +18,7 @@ namespace ShopApp.Pages.Checkout
         public CustomerInformationModel(ApplicationDBContext context, IHostingEnvironment env)
         {
             _context = context;
-            _env =env;
+            _env = env;
         }
 
         [BindProperty]
@@ -89,7 +89,7 @@ namespace ShopApp.Pages.Checkout
         {
             var information = new GetCustomerInformation(HttpContext.Session).Do();
 
-            if(information == null)
+            if (information == null)
             {
                 if (_env.IsDevelopment())
                 {

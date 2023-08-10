@@ -11,6 +11,7 @@ namespace Shop.Domain.Models
         public int Id { get; set; }
         public  int  StockId { get; set; }
 
+        public string SessionId { get; set; }
         public Stock Stock { get; set; }
 
         public int Qty { get; set; }
